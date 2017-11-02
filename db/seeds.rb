@@ -8,7 +8,6 @@
 
 tweets = GetTweets.new.timeline
 analyzer = AnalyzeSentiment.new
-analyzer.load_defaults
 tweets.each do |tweet|
   Tweet.create do |t|
     t.content = tweet.full_text
