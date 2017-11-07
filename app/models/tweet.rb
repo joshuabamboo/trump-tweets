@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
 
   def self.daily_average
     tweets = self.from_today
-    tweets.sum {|tweet| tweet.sentiment_score} / tweets.size
+    tweets.sum {|tweet| tweet.sentiment_score} / tweets.size if !tweets.empty?
   end
 
 end

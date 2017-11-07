@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   def index
-    @score = Tweet.daily_average
+    @avg_score = Tweet.daily_average
+    @recent_score = Tweet.last.sentiment_score
   end
 end

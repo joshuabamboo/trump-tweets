@@ -1,2 +1,7 @@
 <h1>Is Trump Mad?</h1>
-<%= @score > 0 ? 'no' : 'yes' %>
+Today? <%= @avg_score >= 0 ? 'no' : 'yes' if @avg_score %>
+
+<p>
+  Most recent tweet? <%= @recent_score >= 0 ? 'no' : 'yes' if @recent_score %>
+  <%= Tweet.last.content %>
+</p>
