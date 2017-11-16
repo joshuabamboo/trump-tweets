@@ -1,7 +1,9 @@
 <h1>Is Trump Mad?</h1>
-Today? <%= @avg_score >= 0 ? 'no' : 'yes' if @avg_score %>
+<%= @score > 0 ? 'Yup.' : 'Nope.' if @score %>
+<%= "The Donald spent #{@score.round(2)}% of his twitter day in a shitty mood." %>
 
-<p>
-  Most recent tweet? <%= @recent_score >= 0 ? 'no' : 'yes' if @recent_score %>
-  <%= Tweet.last.content %>
-</p>
+<h3>Tweet of the day</h3>
+<p><%= @worst.content %></p>
+
+<h3>Latest tweet</h3>
+<p><%= @latest.content %></p>

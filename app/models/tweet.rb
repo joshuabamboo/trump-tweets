@@ -25,4 +25,8 @@ class Tweet < ApplicationRecord
   def self.daily_worst
     todays_tweets.order('sentiment_score').first
   end
+
+  def self.daily_negatives
+    todays_tweets.select {|t| t.sentiment_score < 0}
+  end
 end
