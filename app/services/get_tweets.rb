@@ -10,6 +10,10 @@ class GetTweets
     client.user_timeline(handle)
   end
 
+  def recent_activity
+    client.user_timeline(handle, since_id: Tweet.maximum('twitter_id'))
+  end
+
   private
     def initialize_rest_client
       Twitter::REST::Client.new do |config|

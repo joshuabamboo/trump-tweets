@@ -13,5 +13,6 @@ tweets.each do |tweet|
     t.content = tweet.full_text
     t.date = tweet.created_at
     t.sentiment_score = analyzer.score(tweet.full_text)
+    t.twitter_id = tweet.id
   end
 end
