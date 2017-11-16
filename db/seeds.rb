@@ -7,12 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 tweets = GetTweets.new.timeline
-analyzer = AnalyzeSentiment.new
-tweets.each do |tweet|
-  Tweet.create do |t|
-    t.content = tweet.full_text
-    t.date = tweet.created_at
-    t.sentiment_score = analyzer.score(tweet.full_text)
-    t.twitter_id = tweet.id
-  end
-end
+tweets.each { |tweet| Tweet.new_from_twitter(tweet) }

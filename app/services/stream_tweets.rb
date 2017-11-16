@@ -5,17 +5,13 @@ class StreamTweets
     @client = initialize_streaming_client
   end
 
-  def add_new_tweets_to_db
+  def listen
     trump_id = 25073877
     # follows all tweets, mentions, rt related to trump
     client.filter(follow: "#{trump_id}") do |tweet|
       # if it's trump tweeting from his account add it to the db
       if tweet.user.id == trump_id && tweet.is_a?(Twitter::Tweet) #|| object.user.id == 64920676 #my acct
-        Tweet.create do |t|
-          t.content = tweet.full_text
-          t.date = tweet.created_at
-          t.sentiment_score = AnalyzeSentiment.new.score(tweet.full_text)
-        end
+        Tweet.new_from_twitter(tweet)
       end
     end
   end
