@@ -1,6 +1,6 @@
 <h1>Is Trump Mad?</h1>
 <%= @score > 0 ? 'Yup.' : 'Nope.' if @score %>
-<%= "The Donald spent #{@score.round(2)}% of his twitter day in a shitty mood." %>
+<%= "The Donald spent #{@score}% of his twitter day in a shitty mood." %>
 
 <h3>Tweet of the day</h3>
 <p><%= @worst.content %></p>
