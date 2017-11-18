@@ -45,7 +45,7 @@
 -5.0 phony
 -5.0 dishonest
 -5.0 nonsense
--1.0 clinton
+-5.0 clinton
 -3.0 fabricate
 -3.0 fabricated
 -2.0 fiction
@@ -312,6 +312,7 @@
 -5.0 troublemaker
 -5.0 troublemakers
 -5.0 worst-performing
+-5.0 worst
 -1.0 suck
 -1.0 racists
 -1.0 losing

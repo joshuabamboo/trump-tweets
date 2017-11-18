@@ -5,6 +5,7 @@ class AnalyzeSentiment
     @analyzer = Sentimental.new
     # Load the default sentiment dictionaries
     analyzer.load_defaults
+    analyzer.load_senti_file('./lib/trump_words.txt')
   end
 
   def score(tweet)
