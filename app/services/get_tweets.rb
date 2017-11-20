@@ -7,11 +7,11 @@ class GetTweets
   end
 
   def timeline
-    client.user_timeline(handle)
+    client.user_timeline(handle, tweet_mode: 'extended')
   end
 
   def recent_activity
-    client.user_timeline(handle, since_id: Tweet.maximum('twitter_id'))
+    client.user_timeline(handle, tweet_mode: 'extended', since_id: Tweet.maximum('twitter_id'))
   end
 
   private

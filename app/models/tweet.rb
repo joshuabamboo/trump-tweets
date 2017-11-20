@@ -4,7 +4,7 @@ class Tweet < ApplicationRecord
     self.create do |t|
       t.content = tweet.full_text
       t.date = tweet.created_at
-      t.sentiment_score = AnalyzeSentiment.new.score(tweet.full_text)
+      t.sentiment_score = AnalyzeSentiment.new.score(tweet.attrs[:full_text])
       t.twitter_id = tweet.id
     end
   end
