@@ -1,2 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "tweets";
+
+
+body {
+  color: #ecf0f1;
+  background-color: black;
+  background-image: url('trump-puke.jpg');
+  background-repeat: no-repeat;
+}
