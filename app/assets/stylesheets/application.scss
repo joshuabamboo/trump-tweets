@@ -6,11 +6,20 @@
 body {
   color: #ecf0f1;
   background-color: black;
-  background-image: url('trump-puke.jpg');
   background-repeat: no-repeat;
   font-family: 'Changa', sans-serif;
 }
+.main {
+  background-image: url('trump-puke.jpg');
+}
 
+.no-tweets {
+  color: #ecf0f1;
+  background-color: #2980b9;
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
   #header-main-question {
@@ -22,5 +31,8 @@ body {
       font-size: 100px;
       font-weight: 800;
       text-align: center;
+  }
+  .well {
+    top: 100px;
   }
 }
