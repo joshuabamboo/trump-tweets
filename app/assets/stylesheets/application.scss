@@ -10,3 +10,17 @@ body {
   background-repeat: no-repeat;
   font-family: 'Changa', sans-serif;
 }
+
+
+@media (max-width: 768px) {
+  #header-main-question {
+      font-size: 42px;
+      font-weight: 800;
+      text-align: center;
+  }
+  #header-main-answer {
+      font-size: 100px;
+      font-weight: 800;
+      text-align: center;
+  }
+}
