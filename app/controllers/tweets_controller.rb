@@ -4,7 +4,7 @@ class TweetsController < ApplicationController
       @score = ((Tweet.daily_negatives.length/Tweet.todays_tweets.length.to_f).round(2)*100).to_i
       @worst = Tweet.daily_worst.content
     else
-      render 'no-tweets.html.erb'
+      render 'no-tweets'
     end
   end
 end

@@ -1,10 +1,11 @@
 class Tweet < ApplicationRecord
 
   def self.new_from_twitter(tweet)
+    formatted_text = tweet.attrs[:full_text].gsub('&amp;', '&')
     self.create do |t|
-      t.content = tweet.attrs[:full_text]
+      t.content = formatted_text
       t.date = tweet.created_at
-      t.sentiment_score = AnalyzeSentiment.new.score(tweet.attrs[:full_text])
+      t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
       t.twitter_id = tweet.id
     end
   end
