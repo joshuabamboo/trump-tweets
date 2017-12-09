@@ -9,8 +9,8 @@ class ScrapeReplies
   end
 
   def reply_count
-    if results = page.match(/data-tweet-stat-count=..\d*/)
-      results[0].gsub(/data-tweet-stat-count=\"/, '')
+    if results = page.match(/ProfileTweet-actionCount.+\d+/)
+      results[0].gsub(/[^0-9]/, '')
     end
   end
 end

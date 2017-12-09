@@ -1,14 +1,13 @@
 class Tweet < ApplicationRecord
-
   def self.new_from_twitter(tweet)
-    analyzer = AnalyzeSentiment.new
     formatted_text = tweet.attrs[:full_text].gsub('&amp;', '&')
     self.create do |t|
       t.content = formatted_text
       t.date = tweet.created_at
-      t.sentiment_score = analyzer.score(formatted_text)
-      t.comment_to_rt_ratio = analyzer.comment_to_rt_ratio(tweet)
-      # t.retweet? =
+      t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
+      t.reply_count = ScrapeReplies.new(tweet.url.to_s).reply_count
+      t.retweet_count = tweet.retweet_count
+      t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
     end
   end
@@ -32,5 +31,9 @@ class Tweet < ApplicationRecord
 
   def self.daily_negatives
     todays_tweets.select {|t| t.sentiment_score < 0}
+  end
+
+  def reply_to_retweet_ratio
+    reply_count / retweet_count
   end
 end

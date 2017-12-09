@@ -11,8 +11,4 @@ class AnalyzeSentiment
   def score(tweet)
     analyzer.score(tweet)
   end
-
-  def comment_to_rt_ratio(twitter_object)
-    binding.pry
-  end
 end
