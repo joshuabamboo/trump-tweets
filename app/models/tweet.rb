@@ -52,9 +52,12 @@ class Tweet < ApplicationRecord
     # holy shit. nailed it.
     if sentiment_tweet == ratio_tweet
       sentiment_tweet
-    # if people are talking this much, it's bad
-    elsif ratio_tweet.reply_to_retweet_ratio >= 3
+    # if it's the most talked about and it has a lopsided ratio, it's bad
+    elsif ratio_tweet == reply_tweet
       ratio_tweet
+    # if the most replied tweet has twice as many replies as rt, it's bad
+    elsif reply_tweet.reply_to_retweet_ratio > 2
+      reply_tweet
     # if the score is this bad and there are at least and equal # replies/retweets
     elsif sentiment_tweet.sentiment_score <= -5 && sentiment_tweet.reply_to_retweet_ratio > 1
       sentiment_tweet
