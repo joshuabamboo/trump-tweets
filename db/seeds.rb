@@ -8,3 +8,4 @@
 
 tweets = GetTweets.new.timeline
 tweets.each { |tweet| Tweet.new_from_twitter(tweet) }
+# tweets.each { |tweet| binding.pry }
