@@ -43,13 +43,13 @@ why tf have i been using nokogiri
 
 - dictionary https://www.nytimes.com/interactive/2016/01/28/upshot/donald-trump-twitter-insults.html
 - retweet to comment ratio
-	- >1 is noteworthy. 
+	- >1 is noteworthy. It doesnt necessarily mean it's bad but almost all bad tweets have a ratio >1
 	- api doesnt provide comment reply data
 		- stream them as they come in - this is intensive
 		- find another service
 		- scrape page for info
 - all caps - potentially bad. shouting w all caps (sometimes he does this for positive things? eg "MAKE AMERICA GREAT AGAIN")
-- Is it him? Does this even matter? Everything is an official statement whether he wrote it or not. Tweets by him are more likely to be angry/agressive/negative potentially..?
+- Is it him? Does this even matter? Everything is an official statement whether he wrote it or not. Tweets by him are more likely to be angry/agressive/negative potentially..?x
 
 
 ###What I learned?

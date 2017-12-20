@@ -9,7 +9,12 @@ class Tweet < ApplicationRecord
       t.retweet_count = tweet.retweet_count
       t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
+      # t.negative = t.potentially_negative?
     end
+  end
+
+  def potentially_negative?
+    sentiment_score < -1 || reply_to_retweet_ratio > 1.5
   end
 
   def self.todays_tweets
