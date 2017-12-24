@@ -14,6 +14,10 @@ class GetTweets
     client.user_timeline(handle, tweet_mode: 'extended', since_id: Tweet.maximum('twitter_id'))
   end
 
+  def by_id(id)
+    client.status(id, tweet_mode: 'extended')
+  end
+
   private
     def initialize_rest_client
       Twitter::REST::Client.new do |config|
