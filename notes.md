@@ -39,6 +39,7 @@ https://www.track-trump.com/
 https://trumptracker.github.io/
 http://trumpinoneword.com/
 http://trumpdonald.org/
+https://www.theatlantic.com/politics/archive/2016/10/what-trump-tweets-while-america-sleeps/503141/
 
 crazy tweets:
 https://twitter.com/realDonaldTrump/status/621783757532626944

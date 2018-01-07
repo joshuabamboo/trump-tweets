@@ -4,17 +4,36 @@ class Tweet < ApplicationRecord
     self.create do |t|
       t.content = formatted_text
       t.date = tweet.created_at
-      t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
-      t.reply_count = ScrapeReplies.new(tweet.url.to_s).reply_count
+    t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
+      t.reply_count = ScrapeReplies.new(tweet.url.to_s, tweet.id).reply_count
       t.retweet_count = tweet.retweet_count
       t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
-      # t.negative = t.potentially_negative?
+      # t.negative =
     end
   end
 
-  def potentially_negative?
-    sentiment_score < -1 || reply_to_retweet_ratio > 1.5
+  def negative?
+    if reply_count < 11000 && date < Date.today
+      false
+    # Added this for 'monitoring the situation' tweet. This should be its own logic
+    elsif sentiment_score > 9
+      false
+    elsif reply_to_retweet_ratio < 0.79 && reply_count < 23000 && sentiment_score > -12
+      false
+    elsif reply_count < 25065 && sentiment_score > -0.53
+      false
+    elsif reply_to_retweet_ratio > 1 && sentiment_score < 0
+      true
+    elsif reply_to_retweet_ratio > 2
+      true
+    elsif sentiment_score < -1.96
+      true
+    elsif reply_to_retweet_ratio > 1.3 && reply_count > 35000
+      true
+    elsif reply_to_retweet_ratio > 1 && reply_count > 45000
+      true
+    end
   end
 
   def self.todays_tweets

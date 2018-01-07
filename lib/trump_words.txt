@@ -1,3 +1,8 @@
+5.0 monitoring
+5.0 situation
+-5.0 radical
+-5.0 mainstream
+-5.0 media
 0.5 terrific
 0.5 tremendous
 -5.0 loser
@@ -119,8 +124,8 @@
 -5.0 overrated
 -5.0 racist
 -5.0 badly
--5.0 innappropriate
--5.0 innappropriately
+-5.0 inappropriate
+-5.0 inappropriately
 -5.0 sexism
 -5.0 extort
 -5.0 extortion
@@ -141,6 +146,7 @@
 -5.0 ashamed
 -5.0 disparage
 -5.0 fakenews
+-5.0 fake news
 -5.0 garbage
 -1.0 enemy
 -5.0 unwatchable
@@ -181,6 +187,7 @@
 -5.0 horribly
 -5.0 insane
 -5.0 misjudgement
+-5.0 misjudgment
 -1.0 judgement
 -5.0 low-level
 -5.0 thug
