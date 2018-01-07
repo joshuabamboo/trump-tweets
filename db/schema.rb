@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171209052216) do
+ActiveRecord::Schema.define(version: 20180107141720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20171209052216) do
     t.integer  "reply_count"
     t.integer  "retweet_count"
     t.boolean  "retweet"
+    t.integer  "favorite_count"
+    t.boolean  "negative"
   end
 
 end

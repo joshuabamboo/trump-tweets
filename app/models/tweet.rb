@@ -10,11 +10,11 @@ class Tweet < ApplicationRecord
       t.retweet_count = tweet.retweet_count
       t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
-      t.negative = t.negative?
+      t.negative = t.negative_prediction
     end
   end
 
-  def negative?
+  def negative_prediction
     if reply_count < 11000 && date < Date.today
       false
     # Added this for 'monitoring the situation' tweet. This should be its own logic
