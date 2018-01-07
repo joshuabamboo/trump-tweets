@@ -4,12 +4,13 @@ class Tweet < ApplicationRecord
     self.create do |t|
       t.content = formatted_text
       t.date = tweet.created_at
-    t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
+      t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
+      t.favorite_count = tweet.favorite_count
       t.reply_count = ScrapeReplies.new(tweet.url.to_s, tweet.id).reply_count
       t.retweet_count = tweet.retweet_count
       t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
-      # t.negative =
+      t.negative = t.negative?
     end
   end
 
