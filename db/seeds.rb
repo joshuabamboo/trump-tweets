@@ -26,18 +26,34 @@
 #   Tweet.new_from_twitter(t) if !Tweet.find_by(twitter_id: id)
 # end
 
-t = GetTweets.new.by_id(822501803615014918)
-   Tweet.new_from_twitter(t)
 
-# Get Trump's entire timeline
+# Get Trump's entire timeline oldest to newest
+GetTweets.new.timeline.each {|tweet| Tweet.new_from_twitter(tweet)}
 first_tweet_as_president = 822501803615014918
-t = GetTweets.new.by_id(first_tweet_as_president)
-Tweet.new_from_twitter(t)
+# t = GetTweets.new.by_id(first_tweet_as_president)
+# Tweet.new_from_twitter(t)
 latest_tweet_id = first_tweet_as_president
+max_id = Tweet.order('date').first.twitter_id - 1
 
-until latest_tweet_id == 949619270631256064
-  GetTweets.new.user_timeline_since(latest_tweet_id).each do |tweet|
+loop do
+  resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
     Tweet.new_from_twitter(tweet)
   end
-  latest_tweet_id = Tweet.order('date').last.twitter_id
+  break if resp.empty?
+  max_id = Tweet.order('date').first.twitter_id - 1
 end
+
+
+# # Get Trump's entire timeline newest to oldest
+# last_tweet = 949619270631256064
+# t = GetTweets.new.by_id(last_tweet)
+# Tweet.new_from_twitter(t)
+# max_tweet_id = last_tweet
+#
+# until max_tweet_id == 949619270631256064
+#   batch = GetTweets.new.user_timeline_max(max_tweet_id)
+#   batch.each do |tweet|
+#     Tweet.new_from_twitter(tweet)
+#   end
+#   max_tweet_id = Tweet.order('date').last.twitter_id
+# end

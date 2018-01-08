@@ -10,8 +10,8 @@ class GetTweets
     client.user_timeline(handle, tweet_mode: 'extended')
   end
 
-  def user_timeline_since(since_id)
-    client.user_timeline(handle, since_id: since_id, tweet_mode: 'extended')
+  def user_timeline_since(since_id, max_id)
+    client.user_timeline(handle, since_id: since_id, max_id: max_id, tweet_mode: 'extended', count: 200)
   end
 
   def recent_activity

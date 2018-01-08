@@ -6,7 +6,7 @@ class Tweet < ApplicationRecord
       t.date = tweet.created_at
       t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
       t.favorite_count = tweet.favorite_count
-      t.reply_count = ScrapeReplies.new(tweet.url.to_s, tweet.id).reply_count
+      t.reply_count = ScrapeReplies.new(tweet.url.to_s, tweet.id, tweet.retweet?).reply_count
       t.retweet_count = tweet.retweet_count
       t.retweet = tweet.retweet?
       t.twitter_id = tweet.id
@@ -15,6 +15,7 @@ class Tweet < ApplicationRecord
   end
 
   def negative_prediction
+    binding.pry if !reply_count
     if reply_count < 11000 && date < Date.today
       false
     # Added this for 'monitoring the situation' tweet. This should be its own logic
