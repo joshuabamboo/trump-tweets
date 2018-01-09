@@ -23,13 +23,13 @@
 
     	.axis {
     	  font: 10px sans-serif;
+        fill: steelblue;
     	}
 
     	.axis path,
     	.axis line {
-    	  fill: none;
     	  stroke: #000;
-    	  shape-rendering: crispEdges;
+    	  shape-rendering: auto;
     	}
 
     </style>
@@ -89,7 +89,7 @@
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis.tickValues(x.domain().filter(function(d, i) { return !(i%7) })))
+            .call(xAxis.tickValues(x.domain().filter((d, i) => !(i%7) )))
           .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
