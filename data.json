@@ -1,6 +1,10 @@
 [
 {
-"Letter": "A",
+"Letter": "AA",
+"Freq": 20
+},
+{
+"Letter": "AA",
 "Freq": 20
 },
 {

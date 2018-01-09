@@ -94,3 +94,8 @@ Decision tree for negative tweet:
   	 end
 - jpeg rendered when had jpg of same name? ie trump.jpeg vs trump.jpg
 - twitter api doesnt have replyCount - had to scrape page
+- d3!
+	- manipulating x axis labels `call(xAxis.tickValues(x.domain().filter(function(d, i) { return !(i%7) })))`	 
+- customize json response to serve d3 (instead of serving entire db objects as json)
+	- https://github.com/rails/jbuilder vs doing it yourself http://ruby-doc.org/stdlib-2.0.0/libdoc/json/rdoc/JSON.html
+- twitter api `since_id` parameter to `user_timeline` is a pain in the ass that took 5 hours to figure out	 
