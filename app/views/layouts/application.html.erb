@@ -8,9 +8,35 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Changa:400,800" rel="stylesheet">
+
+    <style>
+
+      .bar{
+        fill: steelblue;
+      }
+
+      .bar:hover{
+        fill: brown;
+      }
+
+    	.axis {
+    	  font: 10px sans-serif;
+        fill: steelblue;
+    	}
+
+    	.axis path,
+    	.axis line {
+    	  stroke: #000;
+    	  shape-rendering: auto;
+    	}
+
+    </style>
   </head>
 
   <body>
     <%= yield %>
+
+
+
   </body>
 </html>

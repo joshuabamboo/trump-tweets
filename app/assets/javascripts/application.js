@@ -14,4 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require d3.v3.min
+//= require tweets-per-day
 //= require_tree .
