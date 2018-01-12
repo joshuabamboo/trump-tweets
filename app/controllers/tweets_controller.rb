@@ -26,6 +26,7 @@ class TweetsController < ApplicationController
     respond_to do |format|
       # format.json {render json: @tweet}
       format.json {render json: @results}
+      format.csv {render 'test.csv'}
     end
   end
 
