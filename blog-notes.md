@@ -28,6 +28,17 @@ why tf have i been using nokogiri
 
 # Building Trump Site
 
+Scroll story brain dump:
+
+- My use of social media is not Presidential - it’s MODERN DAY PRESIDENTIAL. Make America Great Again!
+- I have the best words
+	- word count breakdown
+	- most mentioned people	 
+- Most liked:
+- Most rt:
+- Most replied:
+- 
+
 **Is It Donald Algo**
 
 - hashtag? - donald doesnt use a lot of hashtags

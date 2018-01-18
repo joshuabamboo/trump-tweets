@@ -59,9 +59,6 @@ class Tweet < ApplicationRecord
     todays_tweets.select {|t| t.sentiment_score < 0}
   end
 
-  def reply_to_retweet_ratio
-    reply_count / retweet_count.to_f
-  end
 
   def self.worst_ratio
     todays_tweets.sort_by {|t| t.reply_to_retweet_ratio}.last
@@ -69,6 +66,66 @@ class Tweet < ApplicationRecord
 
   def self.most_replies
     todays_tweets.sort_by {|t| t.reply_count}.last
+  end
+
+  def self.most_liked
+    self.all.sort_by {|t| t.favorite_count}.last # these could be more efficient, do at once instead of calling all and sort_by
+  end
+
+  def self.most_replied
+    self.all.sort_by {|t| t.reply_count}.last
+  end
+
+  def self.most_retweeted
+    self.all.sort_by {|t| t.retweet_count}.last
+  end
+
+  def self.word_mentions
+    results = {}
+    self.all.each do |t|
+      words = t.content.scan(/\b\S+\b/)
+      words.each do |word|
+        formatted_word = word.downcase
+        if !results[formatted_word]
+          results[formatted_word] = 1
+        else
+          results[formatted_word] += 1
+        end
+      end
+    end
+    results
+  end
+
+  def self.all_time_worst
+    top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(50)
+    top_ratios = Tweet.all.sort_by {|t| t.reply_to_retweet_ratio}.last(50)
+    results = top_replies - top_ratios
+    results.each{|t|puts t.content;puts t.sentiment_score;puts ''}
+  end
+
+  def self.percentage_of_negative_tweets
+    negative_count = self.where(negative: true).size
+    total_count = self.where(negative: false).size + negative_count
+    begin
+      ((negative_count/total_count.to_f)*100).round
+    rescue # if all tweets have no negative score
+      0
+    end
+  end
+
+  def self.tweets_by_date(date)
+    self.where(date: Date.parse(date).beginning_of_day..Date.parse(date).end_of_day)
+  end
+
+  def self.negative_percentage_by_day
+    result = {}
+    self.group("DATE(date)").count.each do |date, tweet_total|
+      daily_tweets = tweets_by_date("#{date}")
+      negative_percentage = daily_tweets.percentage_of_negative_tweets
+
+      result[date] = negative_percentage
+    end
+    result
   end
 
   def self.daily_worst
@@ -99,4 +156,7 @@ class Tweet < ApplicationRecord
     end
   end
 
+  def reply_to_retweet_ratio
+    reply_count / retweet_count.to_f
+  end
 end
