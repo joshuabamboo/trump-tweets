@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require d3.v3.min
 //= require tweets-per-day
+//= require particles.min
 //= require_tree .

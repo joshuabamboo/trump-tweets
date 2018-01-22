@@ -10,6 +10,10 @@ class TweetsController < ApplicationController
     end
   end
 
+  def year
+
+  end
+
   def data
     tweets = Tweet.all
     @results = []
