@@ -32,6 +32,7 @@ gem 'twitter'
 gem 'sentimental'
 # All the pretty
 gem 'bootstrap-sass', '~> 3.3.7'
+gem "font-awesome-rails"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
