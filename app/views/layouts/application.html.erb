@@ -49,7 +49,7 @@
     dim.graphHeight = dim.height - margin.top - margin.bottom;
 
     // add the SVG element
-    var svg = d3.select('body').append('svg')
+    var svg = d3.select('div#howdy').append('svg')
       .attr({width: dim.width, height: dim.height})
       .style({margin:0,padding:0});
 
@@ -181,6 +181,16 @@
         .style('opacity',function(d){return (d[time].label!=null)?0.8:0.0;})
         .style('fill','steelblue');  // black dots without this
     }); // end load the data
+
+      // trying to make svg responsive
+      var aspect = dim.width / dim.height,
+      chart = d3.select('#chart');
+      d3.select(window)
+        .on("resize", function() {
+          var targetWidth = chart.node().getBoundingClientRect().width;
+          chart.attr("width", targetWidth);
+          chart.attr("height", targetWidth / aspect);
+      });
 
     </script>
 
