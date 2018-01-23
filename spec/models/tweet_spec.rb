@@ -14,7 +14,7 @@ tough_positives = [940795587733151744]
 tough_negatives = [943135588496093190,936551346299338752]
 
 RSpec.describe Tweet, type: :model do
-  describe '#decision' do
+  describe '#negative?' do
     context 'with negative content' do
        let!(:negative_tweets) {negative_ids.map {|id| Tweet.find_by(twitter_id: id)}}
       it 'determines that sentiment is negative' do
@@ -25,7 +25,7 @@ RSpec.describe Tweet, type: :model do
     end
     context 'with presidential content' do
        let!(:presidential_tweets) {presidential_ids.map {|id| Tweet.find_by(twitter_id: id)}}
-      it 'determines that sentiment is negative' do
+      it 'determines that sentiment is not negative' do
         presidential_tweets.each do |tweet|
           expect(tweet.negative?).to be_falsey, "Expected to be labeled presidential:\n#{tweet.content}\nScore: #{tweet.sentiment_score}\nRatio: #{tweet.reply_to_retweet_ratio}\nReplies: #{tweet.reply_count}"
         end
