@@ -3,7 +3,7 @@ class Tweet < ApplicationRecord
     formatted_text = tweet.attrs[:full_text].gsub('&amp;', '&')
     self.create do |t|
       t.content = formatted_text
-      t.date = tweet.created_at
+      t.date = tweet.created_at - 18000
       t.sentiment_score = AnalyzeSentiment.new.score(formatted_text)
       t.favorite_count = tweet.favorite_count
       t.reply_count = ScrapeReplies.new(tweet.url.to_s, tweet.id, tweet.retweet?).reply_count

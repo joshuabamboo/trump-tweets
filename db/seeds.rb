@@ -43,6 +43,12 @@ loop do
   max_id = Tweet.order('date').first.twitter_id - 1
 end
 
+# #adjust to EST timezone
+# Tweet.all.each do |t|
+#   est_date = t.date - 18000
+#   t.update(date: est_date)
+# end
+
 
 # # Get Trump's entire timeline newest to oldest
 # last_tweet = 949619270631256064
