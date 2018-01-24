@@ -41,3 +41,12 @@
 //= require wow/wow.min
 //= require script
 //= require_tree .
+
+
+
+document.addEventListener("turbolinks:load", function() {
+  $('#clinton-tweets').hide()
+  $('#obama-tweets').hide()
+  $('#trump-tweets').hide()
+
+})

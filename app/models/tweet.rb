@@ -96,10 +96,22 @@ class Tweet < ApplicationRecord
     results
   end
 
+  def self.tweets_that_include(words, ignore=nil)
+    tweets = words.map do |word|
+      self.where("lower(content) like lower(?)", "%#{word}%")
+    end.flatten.uniq
+    if ignore
+      ignored = ignore.map {|word| self.where("lower(content) like lower(?)", "%#{word}%")}.flatten.uniq
+      tweets = tweets - ignored
+    end
+    tweets
+  end
+
   def self.all_time_worst
-    top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(50)
+    top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(150)
     top_ratios = Tweet.all.sort_by {|t| t.reply_to_retweet_ratio}.last(50)
-    results = top_replies - top_ratios
+    top_negatives = Tweet.all.sort_by {|t| t.sentiment_score}.first(50)
+    results = top_replies & top_ratios
     results.each{|t|puts t.content;puts t.sentiment_score;puts ''}
   end
 

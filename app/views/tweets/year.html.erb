@@ -146,9 +146,8 @@
         <div class="photocard-wrap animated fadeIn clearfix animation-action">
            <div class="photocard-image-wrap  column-half column-float-right">
               <div class="photocard-image-container twitter-tweet-photocard">
-                <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Democrats have shut down our government in the interests of their far left base. They don’t want to do it but are powerless!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/955428815777533952?ref_src=twsrc%5Etfw">January 22, 2018</a></blockquote>
-                  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+                <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Why would Kim Jong-un insult me by calling me &quot;old,&quot; when I would NEVER call him &quot;short and fat?&quot; Oh well, I try so hard to be his friend - and maybe someday that will happen!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/929511061954297857?ref_src=twsrc%5Etfw">November 12, 2017</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
               </div>
            </div>
            <div class="photocard-content-wrap dark column-float-left column-half" data-stellar-background-ratio="0.5">
@@ -175,9 +174,8 @@
         <div class="photocard-wrap animated fadeIn clearfix animation-action">
            <div class="photocard-image-wrap  column-half column-float-left">
              <div class="photocard-image-container twitter-tweet-photocard">
-               <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Democrats have shut down our government in the interests of their far left base. They don’t want to do it but are powerless!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/955428815777533952?ref_src=twsrc%5Etfw">January 22, 2018</a></blockquote>
-                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+               <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">North Korean Leader Kim Jong Un just stated that the “Nuclear Button is on his desk at all times.” Will someone from his depleted and food starved regime please inform him that I too have a Nuclear Button, but it is a much bigger &amp; more powerful one than his, and my Button works!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/948355557022420992?ref_src=twsrc%5Etfw">January 3, 2018</a></blockquote>
+               <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
              </div>
            </div>
            <div class="photocard-content-wrap dark column-float-right column-half" data-stellar-background-ratio="0.5">
@@ -204,8 +202,8 @@
         <div class="photocard-wrap animated fadeIn clearfix animation-action">
            <div class="photocard-image-wrap  column-half column-float-right">
               <div class="photocard-image-container twitter-tweet-photocard">
-                <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Democrats have shut down our government in the interests of their far left base. They don’t want to do it but are powerless!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/955428815777533952?ref_src=twsrc%5Etfw">January 22, 2018</a></blockquote>
-                  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <blockquote class="twitter-tweet" data-lang="en"><p lang="und" dir="ltr"><a href="https://twitter.com/hashtag/FraudNewsCNN?src=hash&amp;ref_src=twsrc%5Etfw">#FraudNewsCNN</a> <a href="https://twitter.com/hashtag/FNN?src=hash&amp;ref_src=twsrc%5Etfw">#FNN</a> <a href="https://t.co/WYUnHjjUjg">pic.twitter.com/WYUnHjjUjg</a></p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/881503147168071680?ref_src=twsrc%5Etfw">July 2, 2017</a></blockquote>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
               </div>
            </div>
@@ -256,12 +254,17 @@
                  <div class="price-attrs">
                     <div class="price-number font-accident-two-bold-italic">01</div>
                     <div class="price-plan font-accident-one-normal">Yourself</div>
-                    <div class="price-descr"><strong>150</strong> mentions of yourself</div>
-                    <div class="price-conclusion">in 100 tweets</div>
+                    <div class="price-descr"><strong> <%= @trump_tweets.size %> </strong> mentions of yourself</div>
+                    <div class="price-conclusion">That's an average of one every 16 hours.</div>
                  </div>
                  <div class="dividewhite4"></div>
 
-                 <button type="button" class="btn btn-default btn-lgr-str">See all</button>
+                 <button type="button" class="btn btn-default btn-lgr-str"  onclick='$("#trump-tweets").toggle()'>See all</button>
+                 <div id="trump-tweets">
+                   <% @trump_tweets.each do |t| %>
+                     <p><%= t.content %></p>
+                   <% end %>
+                 </div>
               </div>
               <div class="dividewhite4"></div>
            </div>
@@ -270,12 +273,16 @@
                  <div class="price-attrs">
                     <div class="price-number font-accident-two-bold-italic">02</div>
                     <div class="price-plan font-accident-one-normal">Hillary Clinton</div>
-                    <div class="price-descr"><strong>100</strong> mentions of Clinton</div>
-                    <div class="price-conclusion">in 90 tweets</div>
+                    <div class="price-descr"><strong> <%= @clinton_tweets.size %> </strong> mentions of Clinton</div>
+                    <div class="price-conclusion">Contrary to Kellyanne Conway's "Nobody here talks about Hillary Clinton" statement, Hillary Clinton is the second most mentioned person in Trump's tweets behind Trump himself.</div>
                  </div>
                  <div class="dividewhite4"></div>
-
-                 <button type="button" class="btn btn-default btn-lgr-str">See all</button>
+                 <button type="button" class="btn btn-default btn-lgr-str"  onclick='$("#clinton-tweets").toggle()'>See all</button>
+                 <div id="clinton-tweets">
+                   <% @clinton_tweets.each do |t| %>
+                     <p><%= t.content %></p>
+                   <% end %>
+                 </div>
               </div>
               <div class="dividewhite4"></div>
            </div>
@@ -284,12 +291,17 @@
                  <div class="price-attrs">
                     <div class="price-number font-accident-two-bold-italic">03</div>
                     <div class="price-plan font-accident-one-normal">Barack Obama</div>
-                    <div class="price-descr"><strong>60</strong> mentions of Obama</div>
-                    <div class="price-conclusion">in 50 tweets</div>
+                    <div class="price-descr"><strong> <%= @obama_tweets.size %> </strong> mentions of Obama</div>
+                    <div class="price-conclusion"></div>
                  </div>
                  <div class="dividewhite4"></div>
 
-                 <button type="button" class="btn btn-default btn-lgr-str">See all</button>
+                 <button type="button" class="btn btn-default btn-lgr-str"  onclick='$("#obama-tweets").toggle()'>See all</button>
+                 <div id="obama-tweets">
+                   <% @obama_tweets.each do |t| %>
+                     <p><%= t.content %></p>
+                   <% end %>
+                 </div>
               </div>
               <div class="dividewhite4"></div>
            </div>
@@ -342,4 +354,19 @@
   </section>
 
   <!-- /Worst Tweets -->
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-12 col-md-offset-4">
+      <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Why would Kim Jong-un insult me by calling me &quot;old,&quot; when I would NEVER call him &quot;short and fat?&quot; Oh well, I try so hard to be his friend - and maybe someday that will happen!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/929511061954297857?ref_src=twsrc%5Etfw">November 12, 2017</a></blockquote>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    <div class="col-md-12 col-md-offset-4">
+      <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Why would Kim Jong-un insult me by calling me &quot;old,&quot; when I would NEVER call him &quot;short and fat?&quot; Oh well, I try so hard to be his friend - and maybe someday that will happen!</p>&mdash; Donald J. Trump (@realDonaldTrump) <a href="https://twitter.com/realDonaldTrump/status/929511061954297857?ref_src=twsrc%5Etfw">November 12, 2017</a></blockquote>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+
+  </div>
+
+</div>
 </div>
