@@ -11,7 +11,7 @@ class TweetsController < ApplicationController
   end
 
   def year
-    @clinton_tweets = Tweet.tweets_that_include(['hillary', 'clinton'])
+    @clinton_tweets = Tweet.tweets_that_include(['hillary', 'clinton', 'crooked'])
     @obama_tweets = Tweet.tweets_that_include(['barack', 'obama'], ['obamacare'])
     @trump_tweets = Tweet.tweets_that_include(['donald', 'trump', ' i ', ' me '], ['ivanka',' son', 'ballard'])
   end

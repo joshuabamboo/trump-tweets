@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(e) {
+
+
+
   // set the dimensions of the canvas
   var margin = {top: 20, right: 20, bottom: 70, left: 40},
       width = 1500 - margin.left - margin.right,
@@ -18,6 +21,15 @@ document.addEventListener("DOMContentLoaded", function(e) {
   .orient("left")
   .ticks(10);
 
+
+  // tooltip
+  var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([315, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d.Count + "</span>";
+  })
+
   // add the SVG element
   var svg = d3.select("div#svg-container").append("svg")
       // .attr("width", width + margin.left + margin.right)
@@ -28,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")")
       .classed("svg-content", true);
+
+  svg.call(tip);
 
   // load the data
   d3.json("data.json", function(error, data) {
@@ -70,7 +84,8 @@ document.addEventListener("DOMContentLoaded", function(e) {
         .attr("x", function(d) { return x(d.Date); })
         .attr("width", x.rangeBand())
         .attr("y", function(d) { return y(d.Count); })
-        .attr("height", function(d) { return height - y(d.Count); });
-
+        .attr("height", function(d) { return height - y(d.Count); })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
   });
 });
