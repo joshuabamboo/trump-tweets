@@ -17,28 +17,16 @@ class TweetsController < ApplicationController
   end
 
   def data
-    tweets = Tweet.all
-    @results = []
-    # get all uniq dates
-    dates = Tweet.order(date: :asc).pluck(:date).map {|date| date.strftime('%b %d, %Y')}.uniq
-    # iterate over them
-    dates.each do |d|
-      # get count for all tweets on that day
-      tweet_count = Tweet.where(:date => Date.parse(d).beginning_of_day..Date.parse(d).end_of_day).size
-      # add structured hash to results array
-      @results.push({Date: d, Count: tweet_count})
-    end
+    @results = File.read("all-tweets.json")
     respond_to do |format|
-      # format.json {render json: @tweet}
       format.json {render json: @results}
-      format.csv {render 'test.csv'}
     end
   end
 
   def circle
     tweets = Tweet.all
     @results = [{year: '0'}]
-    weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-14") ).select(&:sunday?).map(&:to_s)
+    weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") ).select(&:sunday?).map(&:to_s)
     weeks.each.with_index(1) do |d, i|
       tweet_count = Tweet.where(:date => Date.parse(d).beginning_of_week..Date.parse(d).end_of_day).size
       @results[0]["Week #{i}"] = tweet_count

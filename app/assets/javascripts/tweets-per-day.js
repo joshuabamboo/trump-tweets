@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(e) {
 
-
-
   // set the dimensions of the canvas
   var margin = {top: 20, right: 20, bottom: 70, left: 40},
       width = 1500 - margin.left - margin.right,
@@ -27,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
   .attr('class', 'd3-tip')
   .offset([315, 0])
   .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d.Count + "</span>";
+    return `<strong>${d.Date}: </strong> <span style='color:red'> ${d.Count} tweets</span>`;
   })
 
   // add the SVG element

@@ -27,21 +27,21 @@
 # end
 
 
-# Get Trump's entire timeline oldest to newest
-GetTweets.new.timeline.each {|tweet| Tweet.new_from_twitter(tweet)}
-first_tweet_as_president = 822501803615014918
-# t = GetTweets.new.by_id(first_tweet_as_president)
-# Tweet.new_from_twitter(t)
-latest_tweet_id = first_tweet_as_president
-max_id = Tweet.order('date').first.twitter_id - 1
-
-loop do
-  resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
-    Tweet.new_from_twitter(tweet)
-  end
-  break if resp.empty?
-  max_id = Tweet.order('date').first.twitter_id - 1
-end
+# # Get Trump's entire timeline oldest to newest
+# GetTweets.new.timeline.each {|tweet| Tweet.new_from_twitter(tweet)}
+# first_tweet_as_president = 822501803615014918
+# # t = GetTweets.new.by_id(first_tweet_as_president)
+# # Tweet.new_from_twitter(t)
+# latest_tweet_id = first_tweet_as_president
+# max_id = Tweet.order('date').first.twitter_id - 1
+#
+# loop do
+#   resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
+#     Tweet.new_from_twitter(tweet)
+#   end
+#   break if resp.empty?
+#   max_id = Tweet.order('date').first.twitter_id - 1
+# end
 
 # #adjust to EST timezone
 # Tweet.all.each do |t|
@@ -62,4 +62,22 @@ end
 #     Tweet.new_from_twitter(tweet)
 #   end
 #   max_tweet_id = Tweet.order('date').last.twitter_id
+# end
+
+# # JSON for histogram
+# require 'json'
+# tweets = Tweet.all
+# @results = []
+# # get all uniq dates
+# dates = Tweet.order(date: :asc).pluck(:date).map {|date| date.strftime('%b %d, %Y')}.uniq
+# # iterate over them
+# dates.each do |d|
+#   # get count for all tweets on that day
+#   tweet_count = Tweet.where(:date => Date.parse(d).beginning_of_day..Date.parse(d).end_of_day).size
+#   # add structured hash to results array
+#   @results.push({Date: d, Count: tweet_count})
+# end
+#
+# File.open("all-tweets.json","w") do |f|
+#   f.write(@results.to_json)
 # end

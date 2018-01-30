@@ -1,6 +1,7 @@
 class Tweet < ApplicationRecord
   def self.new_from_twitter(tweet)
     formatted_text = tweet.attrs[:full_text].gsub('&amp;', '&')
+    puts "creating tweet: #{tweet.created_at - 18000} --- #{formatted_text}"
     self.create do |t|
       t.content = formatted_text
       t.date = tweet.created_at - 18000
@@ -127,6 +128,11 @@ class Tweet < ApplicationRecord
 
   def self.tweets_by_date(date)
     self.where(date: Date.parse(date).beginning_of_day..Date.parse(date).end_of_day)
+  end
+
+  def self.dates_with_no_tweets
+    tweet_days = Tweet.pluck(:date).map {|date| date.to_date}.uniq
+    everyday = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") )
   end
 
   def self.negative_percentage_by_day
