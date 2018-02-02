@@ -81,6 +81,6 @@ test:
 production:
   <<: *default
   database: istrumpmad_production
-  host: ''
+  host: 138.197.102.164
   username: istrumpmad
   password: <%= ENV['ISTRUMPMAD_DATABASE_PASSWORD'] %>
