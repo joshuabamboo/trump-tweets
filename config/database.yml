@@ -80,9 +80,9 @@ test:
 #<%#= ENV['ISTRUMPMAD_DATABASE_PASSWORD'] %>
 production:
   <<: *default
-  database: istrumpmad_production
+  database: rails_project_production
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: rails
+  username: istrumpmad
   password:
