@@ -77,10 +77,12 @@ test:
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
-#
+#<%#= ENV['ISTRUMPMAD_DATABASE_PASSWORD'] %>
 production:
   <<: *default
   database: istrumpmad_production
-  host: 138.197.102.164
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   username: istrumpmad
-  password: <%= ENV['ISTRUMPMAD_DATABASE_PASSWORD'] %>
+  password:
