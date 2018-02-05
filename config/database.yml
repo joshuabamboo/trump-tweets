@@ -84,5 +84,5 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: deploy
+  username: postgres2
   password:
