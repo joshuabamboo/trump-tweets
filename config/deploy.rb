@@ -1,8 +1,8 @@
-server '138.197.102.164', port: 22, roles: [:web, :app, :db], primary: true
+server '159.89.190.86', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:joshuabamboo/trump-tweets.git'
-set :application,     'year-in-review'
-set :user,            'rails'
+set :application,     'trump-tweets'
+set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 

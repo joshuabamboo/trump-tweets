@@ -12,6 +12,8 @@ gem 'rails', '~> 5.0.6'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+# Trying Unicorn as the app server bc digitalocean is setup with unicorn
+gem 'unicorn'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
