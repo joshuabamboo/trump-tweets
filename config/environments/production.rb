@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
+  config.secret_key_base = '6a4943a8bb55ca629680cf98f337a77875dd353af4104d90472bdf7be936b196feec25a861c923bfa3ff094b6159409f7abf32bfb09bc66c3871118326b5318b'
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -24,6 +24,7 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
+  config.serve_static_assets = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
