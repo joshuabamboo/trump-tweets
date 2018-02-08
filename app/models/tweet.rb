@@ -119,6 +119,7 @@ class Tweet < ApplicationRecord
   def self.dates_with_no_tweets
     tweet_days = Tweet.pluck(:date).map {|date| date.to_date}.uniq
     everyday = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") )
+    everyday - tweet_days
   end
 
 
