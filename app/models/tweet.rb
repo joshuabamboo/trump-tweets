@@ -16,7 +16,6 @@ class Tweet < ApplicationRecord
   end
 
   def negative_prediction
-    binding.pry if !reply_count
     if reply_count < 11000 && date < Date.today
       false
     # Added this for 'monitoring the situation' tweet. This should be its own logic
@@ -109,42 +108,19 @@ class Tweet < ApplicationRecord
   end
 
   def self.all_time_worst
-    top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(150)
-    top_ratios = Tweet.all.sort_by {|t| t.reply_to_retweet_ratio}.last(50)
-    top_negatives = Tweet.all.sort_by {|t| t.sentiment_score}.first(50)
-    results = top_replies & top_ratios
+    top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(250)
+    top_ratios = Tweet.all.sort_by {|t| t.reply_to_retweet_ratio}.last(550)
+    top_negatives = Tweet.all.sort_by {|t| t.sentiment_score}.first(300)
+    results = top_replies & top_ratios & top_negatives
     results.each{|t|puts t.content;puts t.sentiment_score;puts ''}
   end
 
-  def self.percentage_of_negative_tweets
-    negative_count = self.where(negative: true).size
-    total_count = self.where(negative: false).size + negative_count
-    begin
-      ((negative_count/total_count.to_f)*100).round
-    rescue # if all tweets have no negative score
-      0
-    end
-  end
-
-  def self.tweets_by_date(date)
-    self.where(date: Date.parse(date).beginning_of_day..Date.parse(date).end_of_day)
-  end
 
   def self.dates_with_no_tweets
     tweet_days = Tweet.pluck(:date).map {|date| date.to_date}.uniq
     everyday = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") )
   end
 
-  def self.negative_percentage_by_day
-    result = {}
-    self.group("DATE(date)").count.each do |date, tweet_total|
-      daily_tweets = tweets_by_date("#{date}")
-      negative_percentage = daily_tweets.percentage_of_negative_tweets
-
-      result[date] = negative_percentage
-    end
-    result
-  end
 
   def self.daily_worst
     ratio_tweet, sentiment_tweet, reply_tweet =
@@ -172,6 +148,90 @@ class Tweet < ApplicationRecord
     elsif ratio_tweet.reply_to_retweet_ratio > 1.2
       ratio_tweet
     end
+  end
+
+
+
+  # class method sentiment analysis
+  def self.percentage_of_negative_tweets
+    negative_count = self.where(negative: true).size
+    total_count = self.where(negative: false).size + negative_count
+    begin
+      ((negative_count/total_count.to_f)*100).round
+    rescue # if all tweets have no negative score
+      0
+    end
+  end
+
+  def self.tweets_by_date(date)
+    self.where(date: Date.parse(date).beginning_of_day..Date.parse(date).end_of_day)
+  end
+
+  def self.negative_percentage_by_day
+    result = {}
+    self.group("DATE(date)").count.each do |date, tweet_total|
+      daily_tweets = tweets_by_date("#{date}")
+      negative_percentage = daily_tweets.percentage_of_negative_tweets
+
+      result[date] = negative_percentage
+    end
+    result
+  end
+
+  def self.negative_dates
+    negative_percentage_by_day.select {|date,percentage| percentage >= 50}.keys
+  end
+
+  def self.negative_count_by_day
+    tweets = self.all
+    @results = {}
+    days = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") )
+    days.each.with_index(1) do |d, i|
+      todays_tweets = self.where(:date => d.beginning_of_day..d.end_of_day)
+      neg_count = todays_tweets.where(negative: true).size
+      @results[d] = neg_count
+    end
+    @results
+    # daily average
+    #@results.values.inject(:+)/@results.values.size.to_f
+  end
+
+
+  def self.negative_count_by_week
+    tweets = self.all
+    @results = {}
+    weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") ).select(&:sunday?)
+    weeks.each.with_index(1) do |d, i|
+      tweet_count = self.where(:date => d.beginning_of_week..d.end_of_day).count {|t| t.sentiment_score < 0}
+      @results[d] = tweet_count
+    end
+    @results
+  end
+
+  def self.negative_count_by_month
+    tweets = self.all
+    @results = {}
+    months = [ Date.parse("2017-01-01"), Date.parse("2017-02-01"), Date.parse("2017-03-01"), Date.parse("2017-04-01"), Date.parse("2017-05-01"), Date.parse("2017-06-01"), Date.parse("2017-07-01"), Date.parse("2017-08-01"), Date.parse("2017-09-01"), Date.parse("2017-10-01"), Date.parse("2017-11-01"), Date.parse("2017-12-01"), Date.parse("2018-01-20") ]
+    months.each.with_index(1) do |d, i|
+      tweet_count = self.where(:date => d.beginning_of_month..d.end_of_month).count {|t| t.sentiment_score < 0}
+      @results[d] = tweet_count
+    end
+    @results
+  end
+
+  def self.worst_day
+    results = negative_count_by_day
+    results.key(results.values.sort.last)
+  end
+
+  def self.worst_week
+    results = negative_count_by_week
+    results.key(results.values.sort.last)
+  end
+
+  def self.worst_month
+    results = negative_count_by_month
+    results.key(results.values.sort.last)
   end
 
   def reply_to_retweet_ratio

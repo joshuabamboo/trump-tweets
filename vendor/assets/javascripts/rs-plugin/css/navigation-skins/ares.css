@@ -42,7 +42,7 @@ website:    http://www.themepunch.com
 .ares.tparrows:hover:before {
  color:#000;
       }
-.tp-title-wrap { 
+.tp-title-wrap {
   position:absolute;
   z-index:1;
   display:inline-block;
@@ -55,12 +55,12 @@ website:    http://www.themepunch.com
   overflow:hidden;
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  transform:scaleX(0);  
-  -webkit-transform:scaleX(0);  
-  transform-origin:0% 50%; 
+  transform:scaleX(0);
+  -webkit-transform:scaleX(0);
+  transform-origin:0% 50%;
    -webkit-transform-origin:0% 50%;
 }
- .ares.tp-rightarrow .tp-title-wrap { 
+ .ares.tp-rightarrow .tp-title-wrap {
    right:0px;
    margin-right:30px;margin-left:0px;
    -webkit-transform-origin:100% 50%;
@@ -74,7 +74,7 @@ border-radius:30px 0px 0px 30px;
   position:relative;
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  transform:translateX(200px);  
+  transform:translateX(200px);
   text-transform:uppercase;
   color:#000;
   font-weight:400;
@@ -87,7 +87,7 @@ border-radius:30px 0px 0px 30px;
 }
 
 .ares.tp-rightarrow .tp-arr-titleholder {
-   transform:translateX(-200px); 
+   transform:translateX(-200px);
    margin-left:0px; margin-right:10px;
       }
 
@@ -141,7 +141,7 @@ border-radius:30px 0px 0px 30px;
   -webkit-transition:transform 0.3s;
   line-height:20px;
   white-space:nowrap;
-}     
+}
 
 .ares .tp-bullet-title:after {
     width: 0px;
@@ -154,7 +154,7 @@ border-radius:30px 0px 0px 30px;
     right:-10px;
 	top:0px;
 }
-    
+
 .ares .tp-bullet:hover .tp-bullet-title{
   visibility:visible;
    transform:translateX(0px);
@@ -175,15 +175,15 @@ border-radius:30px 0px 0px 30px;
       }
 
 /* TABS */
-.ares .tp-tab { 
-  opacity:1;      
+.ares .tp-tab {
+  opacity:1;
   padding:10px;
   box-sizing:border-box;
   font-family: "Roboto", sans-serif;
   border-bottom: 1px solid #e5e5e5;
  }
-.ares .tp-tab-image 
-{ 
+.ares .tp-tab-image
+{
   width:60px;
   height:60px; max-height:100%; max-width:100%;
   position:relative;
@@ -191,9 +191,9 @@ border-radius:30px 0px 0px 30px;
   float:left;
 
 }
-.ares .tp-tab-content 
+.ares .tp-tab-content
 {
-    background:rgba(0,0,0,0); 
+    background:rgba(0,0,0,0);
     position:relative;
     padding:15px 15px 15px 85px;
  left:0px;
@@ -213,9 +213,9 @@ border-radius:30px 0px 0px 30px;
   font-size:12px;
   margin-bottom:0px;
   }
-.ares .tp-tab-title 
+.ares .tp-tab-title
 {
-    display:block;	
+    display:block;
     text-align:left;
     color:#333;
     font-size:14px;
@@ -225,7 +225,7 @@ border-radius:30px 0px 0px 30px;
 }
 .ares .tp-tab:hover,
 .ares .tp-tab.selected {
-	background:#eee; 
+	background:#eee;
 }
 
 .ares .tp-tab-mask {
@@ -238,4 +238,3 @@ border-radius:30px 0px 0px 30px;
 @media only screen and (max-width: 768px) {
 
 }
-
