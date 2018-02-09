@@ -48,5 +48,6 @@ document.addEventListener("turbolinks:load", function() {
   $('#clinton-tweets').hide()
   $('#obama-tweets').hide()
   $('#trump-tweets').hide()
+  $('#hall-of-shame-tweets').hide()
 
 })

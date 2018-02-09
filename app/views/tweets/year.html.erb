@@ -408,7 +408,7 @@ One tweet in the top 10 is directed at Trump. "U bum @StephenCurry30 already sai
     <div class="container">
       <div class="text-center">
         <h2 class="font-accident-two-bold fontcolor-medium-light">Hall of Shame</h2>
-        <h5 class="font-accident-one-bold uppercase hovercolor">The 100 best worst tweets as determined by sentiment analysis</h5>
+        <h5 class="font-accident-one-bold uppercase hovercolor">The 100 worst tweets as determined by sentiment analysis</h5>
         <div class="dividewhite4"></div>
 
         <div class="row">
@@ -437,6 +437,25 @@ One tweet in the top 10 is directed at Trump. "U bum @StephenCurry30 already sai
       </div>
     </div>
     <div class="divider-dynamic"></div>
+    <div class="row">
+      <div class="text-center">
+        <button type="button" class="btn btn-default btn-lgr-str"  onclick='$("#hall-of-shame-tweets").toggle()'>See all</button>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        <div id="hall-of-shame-tweets">
+          <% @hall_of_shame.each do |t| %>
+          <p><%= t.content %> <br> - President of the United States, <%= link_to t.date, "https://twitter.com/realDonaldTrump/status/#{t.twitter_id}" %></p>
+
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-sm-3 col-md-4"></div>
+
   </section>
   <!-- /Worst Tweets -->
 </div>
