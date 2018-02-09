@@ -1,4 +1,6 @@
 class Tweet < ApplicationRecord
+  RANT_DICTIONARY=['loser','stupid','moron','dumb','haters','fools','phony','dopey','wacko','clown','dumbest','dummy','low-life','nasty','clueless','lightweight','pathetic','puppet','pathological','lyin','stupidity','overrated','sleazy','flunkie','flunk','dumber','sloppy','grubby','losers','bimbo','ripoff','fool','foolish','sleaze','buffoon','wacky','coward','wiseguy','lowlife','low-class','low-rated','disgraced','worst-performing','flunky','lame','dummies','sleazebag','perv','goofy','psycho','morons','kooky','ingrate','ingrates']
+
   def self.new_from_twitter(tweet)
     formatted_text = tweet.attrs[:full_text].gsub('&amp;', '&')
     puts "creating tweet: #{tweet.created_at - 18000} --- #{formatted_text}"
@@ -98,10 +100,13 @@ class Tweet < ApplicationRecord
 
   def self.tweets_that_include(words, ignore=nil)
     tweets = words.map do |word|
-      self.where("lower(content) like lower(?)", "%#{word}%")
+      self.where("content ~* ?", "[[:<:]]#{word}[[:>:]]")
     end.flatten.uniq
     if ignore
-      ignored = ignore.map {|word| self.where("lower(content) like lower(?)", "%#{word}%")}.flatten.uniq
+      ignored = ignore.map do |word|
+        regex = /\b#{word}\b/i
+        self.where("lower(content) like lower(?)", "%#{regex}%")
+      end.flatten.uniq
       tweets = tweets - ignored
     end
     tweets
@@ -111,8 +116,13 @@ class Tweet < ApplicationRecord
     top_replies = Tweet.all.sort_by {|t| t.reply_count}.last(250)
     top_ratios = Tweet.all.sort_by {|t| t.reply_to_retweet_ratio}.last(550)
     top_negatives = Tweet.all.sort_by {|t| t.sentiment_score}.first(300)
-    results = top_replies & top_ratios & top_negatives
-    results.each{|t|puts t.content;puts t.sentiment_score;puts ''}
+    all_top = [top_replies, top_ratios, top_negatives].flatten
+
+    dictionary_matches = self.tweets_that_include(RANT_DICTIONARY)
+    rants = dictionary_matches & all_top
+    top = top_replies & top_ratios & top_negatives
+    cream_of_the_crop = [rants, top].flatten.uniq
+    ranked = cream_of_the_crop.sort_by {|t| t.reply_to_retweet_ratio}.reverse
   end
 
 
