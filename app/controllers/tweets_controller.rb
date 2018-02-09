@@ -14,6 +14,7 @@ class TweetsController < ApplicationController
     @clinton_tweets = Tweet.tweets_that_include(['hillary', 'clinton', 'crooked'])
     @obama_tweets = Tweet.tweets_that_include(['barack', 'obama'], ['obamacare'])
     @trump_tweets = Tweet.tweets_that_include(['donald', 'trump', ' i ', ' me '], ['ivanka',' son', 'ballard'])
+    @hall_of_shame = Tweet.all_time_worst
   end
 
   def data
@@ -36,6 +37,6 @@ class TweetsController < ApplicationController
     end
   end
 
-  
+
 
 end
