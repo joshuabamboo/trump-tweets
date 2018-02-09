@@ -146,8 +146,7 @@
         years.forEach(function(year){
           data[year] = parties.map(function(party){
             return +raw.filter( d => d[yearLabel] === year )
-
-            [0][party] || 0;
+            [0][party].length || 0;
           });
           // add all the values by year
           // {0: 1557, 1: 1594, 2: 1584, 3: 1482, 4: 1627, 5: 1680}
@@ -191,12 +190,16 @@
       var displaydata = d3.range(summax).map(function(d){return [];});
       var indexMargin = 0;
 
-      parties.forEach(function(party,partyidx){
+      // go through each party (graph)
+      // display..
+      for (var partyidx = 0; partyidx < parties.length; partyidx++) {
+        let time_period = parties[partyidx]
+        let tweets = raw[0][time_period]
         for (var i=0;i<data[years[0]][partyidx];++i){
-          displaydata[indexMargin+i].push({label:partyidx,idx:i});
+          displaydata[indexMargin+i].push({label:partyidx,idx:i,negative:tweets[i].negative});
         }
         indexMargin += data[years[0]][partyidx];
-      });
+      }
 
       for (var i=indexMargin;i<summax;++i){
         displaydata[i].push({label:null,idx:null});
@@ -209,7 +212,13 @@
         .attr('cx',function(d){return ((d[time].label!=null)?(xScale(d[time].label)+xLocalScale(d[time].idx%barWidth)+radius+mar):(dim.graphWidth/2));})
         .attr('cy',function(d){return ((d[time].label!=null)?(yScale(Math.floor((d[time].idx+0.1)/barWidth))-radius-mar):0);})
         .style('opacity',function(d){return (d[time].label!=null)?0.8:0.0;})
-        .style('fill','steelblue');  // black dots without this
+        .style('fill', function (d) {
+          if (d[0].negative) {
+            return 'brown'
+          } else {
+            return 'steelblue'
+          }
+        });  // black dots without this
     }); // end load the data
 
       // trying to make svg responsive
