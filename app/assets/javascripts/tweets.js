@@ -1,4 +1,8 @@
 $(window).on("load", function() {
+  $('#clinton-tweets').hide()
+  $('#obama-tweets').hide()
+  $('#trump-tweets').hide()
+  $('#hall-of-shame-tweets').hide()
 
   console.log("Loading particles.js");
 

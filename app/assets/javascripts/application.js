@@ -41,13 +41,3 @@
 //= require wow/wow.min
 //= require script
 //= require_tree .
-
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  $('#clinton-tweets').hide()
-  $('#obama-tweets').hide()
-  $('#trump-tweets').hide()
-  $('#hall-of-shame-tweets').hide()
-
-})

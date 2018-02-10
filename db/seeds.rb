@@ -27,21 +27,22 @@
 # end
 
 
-# # Get Trump's entire timeline oldest to newest
+# Get Trump's entire timeline oldest to newest
 # GetTweets.new.timeline.each {|tweet| Tweet.new_from_twitter(tweet)}
-# first_tweet_as_president = 822501803615014918
-# # t = GetTweets.new.by_id(first_tweet_as_president)
-# # Tweet.new_from_twitter(t)
-# latest_tweet_id = first_tweet_as_president
+first_tweet_as_president = 822501803615014918
+# t = GetTweets.new.by_id(first_tweet_as_president)
+# Tweet.new_from_twitter(t)
+latest_tweet_id = first_tweet_as_president
 # max_id = Tweet.order('date').first.twitter_id - 1
-#
-# loop do
-#   resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
-#     Tweet.new_from_twitter(tweet)
-#   end
-#   break if resp.empty?
-#   max_id = Tweet.order('date').first.twitter_id - 1
-# end
+max_id = 954904213687021568
+
+loop do
+  resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
+    Tweet.new_from_twitter(tweet)
+  end
+  break if resp.empty?
+  max_id = Tweet.order('date').first.twitter_id - 1
+end
 
 # #adjust to EST timezone
 # Tweet.all.each do |t|
@@ -56,7 +57,7 @@
 # Tweet.new_from_twitter(t)
 # max_tweet_id = last_tweet
 #
-# until max_tweet_id == 949619270631256064
+# until max_tweet_id == 954904213687021568
 #   batch = GetTweets.new.user_timeline_max(max_tweet_id)
 #   batch.each do |tweet|
 #     Tweet.new_from_twitter(tweet)
@@ -76,6 +77,23 @@
 #   tweet_count = Tweet.where(:date => Date.parse(d).beginning_of_day..Date.parse(d).end_of_day).size
 #   # add structured hash to results array
 #   @results.push({Date: d, Count: tweet_count})
+# end
+#
+# File.open("all-tweets.json","w") do |f|
+#   f.write(@results.to_json)
+# end
+
+# JSON for circle graph
+# require 'json'
+# tweets = Tweet.all
+# @results = [{year: '0'}]
+# weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") ).select(&:sunday?).map(&:to_s)
+# weeks.each.with_index(1) do |d, i|
+#   tweets = Tweet.where(:date => Date.parse(d).beginning_of_week..Date.parse(d).end_of_day)#.sort_by {|t| t.negative?}
+#   sorted_tweets = tweets.where("negative is not null").order("negative desc")
+#   no_prediction = tweets.where("negative is null")
+#   formatted_tweets = sorted_tweets + no_prediction
+#   @results[0]["Week #{i}"] = formatted_tweets
 # end
 #
 # File.open("all-tweets.json","w") do |f|
