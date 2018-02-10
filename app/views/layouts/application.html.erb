@@ -11,18 +11,75 @@
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <style>
 
+.g-tweet {
+    font-family: 'Helvetica', arial, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.4;
+    width: 480px;
+}
+.g-tweet-text {
+    font-family: 'Helvetica', arial, sans-serif;
+    font-size: 18px;
+    font-weight: 100;
+    max-width: 480px;
+    margin-top: 5px;
+}
+
+.g-trump-mug {
+    width: 72px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+.g-verified {
+    width: 12px;
+}
+.g-user-details {
+    margin-left: -3%;
+}
+.g-username {
+    font-weight: bold;
+    font-size: 18px;
+}
+.g-handle {
+    font-size: 14px;
+    opacity: .8;
+}
+.g-time {
+  opacity: .9;
+  font-size: 11px;
+  display: block;
+  margin-top: 5px;
+  color: #326891;
+}
+
       .d3-tip {
-        line-height: 1;
-        /*font-weight: bold;*/
+        padding-right: 15px;
+        max-width: 510px;
+        font-weight: 100;
+        padding: 25px 40px 25px 25px;
+        background: white;
+        border: 2px solid #e1e8ed;
+        color: black;
+        font-family: 'Helvetica', arial, sans-serif;
+        line-height: 1.4;
+        box-sizing: border-box;
+        margin: 5px auto;
+        border-radius: 4px;
+        border: 1px solid #e1e8ed;
+}
+
+
+        /*line-height: 1;
         padding: 12px;
         background: rgba(0, 0, 0, 0.8);
         color: #fff;
         border-radius: 2px;
-      }
+      }*/
 
       /* Creates a small triangle extender for the tooltip */
       .d3-tip:after {
-        box-sizing: border-box;
+        /*box-sizing: border-box;
         display: inline;
         font-size: 10px;
         width: 100%;
@@ -30,15 +87,15 @@
         color: rgba(0, 0, 0, 0.8);
         content: "\25BC";
         position: absolute;
-        text-align: center;
+        text-align: center;*/
       }
 
       /* Style northward tooltips differently */
-      .d3-tip.n:after {
+      /*.d3-tip.n:after {
         margin: -1px 0 0 0;
         top: 100%;
         left: 0;
-      }
+      }*/
 
 
       .bar{
@@ -82,6 +139,39 @@
     var svg = d3.select('div#howdy').append('svg')
       .attr({width: dim.width, height: dim.height})
       .style({margin:0,padding:0});
+
+    // tool tip
+    var tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-10, 0])
+      .html(function(d) {
+        // return `${d[0].content}`;
+        let date = new Date(d[0].date)
+        // let month = date.toLocaleString('en-us', { month: "long" })
+        // let day = date.getDate()
+
+        return `
+        <div class="g-tweet">
+          <div class="container">
+            <div class='row'>
+              <img class="col-xs-1 g-trump-mug" src="https://static01.nyt.com/newsgraphics/2017/04/18/tweet-trump-timeline/dec2b81d4047d1ed02e8a139533274463c05970c/trump_mug.jpg" alt="">
+              <div class="col-xs-8 g-user-details">
+                <div class="g-username">Donald J. Trump <img class="g-verified" src="https://static01.nyt.com/newsgraphics/2017/04/18/tweet-trump-timeline/dec2b81d4047d1ed02e8a139533274463c05970c/verified.png" alt=""></div>
+                <div class="g-handle">@realDonaldTrump</div>
+              </div>
+              <span class="g-tweet-text col-xs-12">${d[0].content}</span>
+              <span class="g-time col-xs-12">${date}</span>
+            </div>
+          </div>
+        </div>
+        `
+
+
+
+
+        // return `<span style='color:red'> ${d[0].content} </span>`;
+      })
+    svg.call(tip);
 
     // add axis
     var axisLayer = svg.append('g').attr('transform','translate(' + margin.left + ',' + margin.top + ')');
@@ -196,7 +286,13 @@
         let time_period = parties[partyidx]
         let tweets = raw[0][time_period]
         for (var i=0;i<data[years[0]][partyidx];++i){
-          displaydata[indexMargin+i].push({label:partyidx,idx:i,negative:tweets[i].negative});
+          displaydata[indexMargin+i].push( {
+            label: partyidx,
+            idx: i,
+            content: tweets[i].content,
+            negative: tweets[i].negative,
+            date: tweets[i].date
+          } );
         }
         indexMargin += data[years[0]][partyidx];
       }
@@ -211,6 +307,8 @@
         .attr('r',radius)
         .attr('cx',function(d){return ((d[time].label!=null)?(xScale(d[time].label)+xLocalScale(d[time].idx%barWidth)+radius+mar):(dim.graphWidth/2));})
         .attr('cy',function(d){return ((d[time].label!=null)?(yScale(Math.floor((d[time].idx+0.1)/barWidth))-radius-mar):0);})
+        .on('mouseover', tip.show) // add tool tip to circle
+        .on('mouseout', tip.hide)
         .style('opacity',function(d){return (d[time].label!=null)?0.8:0.0;})
         .style('fill', function (d) {
           if (d[0].negative) {
