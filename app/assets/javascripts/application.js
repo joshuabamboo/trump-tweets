@@ -44,7 +44,7 @@
 
 
 
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("DOMContentLoaded", function() {
   $('#clinton-tweets').hide()
   $('#obama-tweets').hide()
   $('#trump-tweets').hide()
