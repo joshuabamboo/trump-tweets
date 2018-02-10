@@ -6,127 +6,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Changa:400,800" rel="stylesheet">
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <style>
-
-.g-tweet {
-    font-family: 'Helvetica', arial, sans-serif;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 1.4;
-    width: 480px;
-}
-.g-tweet-text {
-    font-family: 'Helvetica', arial, sans-serif;
-    font-size: 18px;
-    font-weight: 100;
-    max-width: 480px;
-    margin-top: 5px;
-}
-
-.g-trump-mug {
-    width: 72px;
-    margin-right: 10px;
-    border-radius: 4px;
-}
-.g-verified {
-    width: 12px;
-}
-.g-user-details {
-    margin-left: -3%;
-}
-.g-username {
-    font-weight: bold;
-    font-size: 18px;
-}
-.g-handle {
-    font-size: 14px;
-    opacity: .8;
-}
-.g-time {
-  opacity: .9;
-  font-size: 11px;
-  display: block;
-  margin-top: 5px;
-  color: #326891;
-}
-
-      .d3-tip {
-        padding-right: 15px;
-        max-width: 510px;
-        font-weight: 100;
-        padding: 25px 40px 25px 25px;
-        background: white;
-        border: 2px solid #e1e8ed;
-        color: black;
-        font-family: 'Helvetica', arial, sans-serif;
-        line-height: 1.4;
-        box-sizing: border-box;
-        margin: 5px auto;
-        border-radius: 4px;
-        border: 1px solid #e1e8ed;
-}
-
-
-        /*line-height: 1;
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.8);
-        color: #fff;
-        border-radius: 2px;
-      }*/
-
-      /* Creates a small triangle extender for the tooltip */
-      .d3-tip:after {
-        /*box-sizing: border-box;
-        display: inline;
-        font-size: 10px;
-        width: 100%;
-        line-height: 1;
-        color: rgba(0, 0, 0, 0.8);
-        content: "\25BC";
-        position: absolute;
-        text-align: center;*/
-      }
-
-      /* Style northward tooltips differently */
-      /*.d3-tip.n:after {
-        margin: -1px 0 0 0;
-        top: 100%;
-        left: 0;
-      }*/
-
-
-      .bar{
-        fill: steelblue;
-      }
-
-      .bar:hover{
-        fill: brown;
-      }
-
-    	.axis {
-    	  font: 10px sans-serif;
-        fill: steelblue;
-    	}
-
-    	.axis path,
-    	.axis line {
-    	  stroke: #000;
-    	  shape-rendering: auto;
-    	}
-
-    </style>
   </head>
-
   <body>
-
     <%= yield %>
+  </body>
 
 
-    <script>
-
+  <script type="text/javascript">
     // set the dimensions of the canvas
     var dim = {width: 960, height: 800};
     var margin = {top: 10, bottom: 50, left: 50, right: 10};
@@ -165,11 +54,6 @@
           </div>
         </div>
         `
-
-
-
-
-        // return `<span style='color:red'> ${d[0].content} </span>`;
       })
     svg.call(tip);
 
@@ -329,7 +213,5 @@
           chart.attr("height", targetWidth / aspect);
       });
 
-    </script>
-
-  </body>
+  </script>
 </html>

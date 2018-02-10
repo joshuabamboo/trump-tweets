@@ -1,0 +1,41 @@
+.g-tweet {
+    font-family: 'Helvetica', arial, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.4;
+    width: 480px;
+}
+.g-tweet-text {
+    font-family: 'Helvetica', arial, sans-serif;
+    font-size: 18px;
+    font-weight: 100;
+    max-width: 480px;
+    margin-top: 5px;
+}
+
+.g-trump-mug {
+    width: 72px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+.g-verified {
+    width: 12px;
+}
+.g-user-details {
+    margin-left: -3%;
+}
+.g-username {
+    font-weight: bold;
+    font-size: 18px;
+}
+.g-handle {
+    font-size: 14px;
+    opacity: .8;
+}
+.g-time {
+  opacity: .9;
+  font-size: 11px;
+  display: block;
+  margin-top: 5px;
+  color: #326891;
+}
