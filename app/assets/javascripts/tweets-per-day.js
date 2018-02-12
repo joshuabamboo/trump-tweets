@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function(e) {
   })
 
   // add the SVG element
-  var svg = d3.select("div#svg-container").append("svg")
+  var svg = d3.select("div#howdy").append("svg")
       // .attr("width", width + margin.left + margin.right)
       // .attr("height", height + margin.top + margin.bottom)
       .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 1450 800")
+      .attr("viewBox", "0 0 10 800")
     .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")")

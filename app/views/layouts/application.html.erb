@@ -25,11 +25,20 @@
     dim.graphHeight = dim.height - margin.top - margin.bottom;
 
     // add the SVG element
-    var svg = d3.select('div#howdy').append('svg')
-      .attr({width: dim.width, height: dim.height})
-      .style({margin:0,padding:0});
+    // var svg = d3.select('div#howdy').append('svg')
+      // .attr({width: dim.width, height: dim.height})
+      // .style({margin:0,padding:0});
 
-    // tool tip
+  var svg = d3.select("div#svg-container").append("svg")
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 1000 800")
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")")
+      .classed("svg-content", true);
+
+
+// tool tip
     var tip = d3.tip()
       .attr('class', 'd3-tip')
       .offset([-10, 0])
