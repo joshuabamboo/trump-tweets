@@ -31,7 +31,66 @@ body {
   font-weight: 800;
   text-align: center;
 }
-
+@media (max-width: 520px) {
+  .d3-tip {
+    max-width: 300px;
+    padding-left: 0;
+  }
+  .g-tweet-text {
+      font-family: 'Helvetica', arial, sans-serif;
+      font-size: 10px;
+      font-weight: 100;
+      max-width: 300px;
+      margin-top: 5px;
+      padding-right: 25px;
+  }
+  .g-trump-mug {
+      width: 52px;
+      margin-right: 10px;
+      border-radius: 4px;
+  }
+  .g-verified {
+      width: 12px;
+  }
+  .g-username {
+      font-weight: bold;
+      font-size: 12px;
+  }
+  .g-handle {
+      font-size: 10px;
+      opacity: .8;
+  }
+}
+@media (max-width: 1000px) {
+  .d3-tip {
+    max-width: 400px;
+    padding-left: 0;
+  }
+  .g-tweet-text {
+      font-family: 'Helvetica', arial, sans-serif;
+      font-size: 10px;
+      font-weight: 100;
+      max-width: 300px;
+      margin-top: 5px;
+      padding-right: 25px;
+  }
+  .g-trump-mug {
+      width: 52px;
+      margin-right: 10px;
+      border-radius: 4px;
+  }
+  .g-verified {
+      width: 12px;
+  }
+  .g-username {
+      font-weight: bold;
+      font-size: 12px;
+  }
+  .g-handle {
+      font-size: 10px;
+      opacity: .8;
+  }
+}
 @media (max-width: 768px) {
   #header-main-question {
       font-size: 42px;

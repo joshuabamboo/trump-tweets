@@ -17,7 +17,7 @@
 
   <script type="text/javascript">
     // set the dimensions of the canvas
-    var dim = {width: 960, height: 800};
+    var dim = {width: 960, height: 750};
     var margin = {top: 10, bottom: 50, left: 50, right: 10};
     var inputHeight = 20;
     var numberFormat = d3.format('.0f');
@@ -30,8 +30,8 @@
       // .style({margin:0,padding:0});
 
   var svg = d3.select("div#svg-container").append("svg")
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 1000 800")
+      .attr("preserveAspectRatio", "xMidYMin meet")
+      .attr("viewBox", "0 0 1100 800")
     .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")")
@@ -41,7 +41,7 @@
 // tool tip
     var tip = d3.tip()
       .attr('class', 'd3-tip')
-      .offset([-10, 0])
+      .offset([100, 0])
       .html(function(d) {
         // return `${d[0].content}`;
         let date = new Date(d[0].date)
@@ -49,6 +49,7 @@
         // let day = date.getDate()
 
         return `
+        <div class='col-xs-12'>
         <div class="g-tweet">
           <div class="container">
             <div class='row'>
@@ -62,9 +63,15 @@
             </div>
           </div>
         </div>
+        </div>
         `
       })
+    tip.direction('n')
     svg.call(tip);
+
+    // var fragment = document.createDocumentFragment();
+    // fragment.appendChild(document.getElementById('g-tweet'));
+    // document.getElementById('svg-container').appendChild(fragment);
 
     // add axis
     var axisLayer = svg.append('g').attr('transform','translate(' + margin.left + ',' + margin.top + ')');
@@ -140,9 +147,9 @@
         // highest single data point ie 882
         var max = d3.max(years.map(function(d){return d3.max(data[d]);}));
         // number of vertical rows/height of dots
-        var nrow = 100//Math.ceil(dim.graphHeight/(2*(radius+mar)));
+        var nrow = 90//Math.ceil(dim.graphHeight/(2*(radius+mar)));
         // how wide should each bar be eg 15 dots
-        barWidth = 1//Math.ceil(max/nrow);
+        barWidth = 4//Math.ceil(max/nrow);
         // set graph characteristics based on above
         yScale.domain(d3.range(nrow));
           //tick labels for y axis
@@ -155,14 +162,14 @@
           // not sure but if you remove you lose tickmarks and value of ticks
         xAxisObj.call(xAxis)
           .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", "-.55em")
-            .attr("transform", "rotate(-90)" ); // turn the label on their side
+            // .style("text-anchor", "end")
+            // .attr("dx", "-.8em")
+            // .attr("dy", "-.55em")
+            // .attr("transform", "rotate(90)" ); // turn the label on their side
         yAxisObj.call(yAxis).append('text').text("Tweets Per Week");
 
 
-        xLocalScale.rangeBands([0,xScale.rangeBand()]).domain(d3.range(barWidth));
+        xLocalScale.rangeBands([7,xScale.rangeBand()]).domain(d3.range(barWidth));
         colorScale.domain(d3.range(parties.length));
 
         inputScale.domain(years);
@@ -200,12 +207,12 @@
         .attr('r',radius)
         .attr('cx',function(d){return ((d[time].label!=null)?(xScale(d[time].label)+xLocalScale(d[time].idx%barWidth)+radius+mar):(dim.graphWidth/2));})
         .attr('cy',function(d){return ((d[time].label!=null)?(yScale(Math.floor((d[time].idx+0.1)/barWidth))-radius-mar):0);})
-        .on('mouseover', tip.show) // add tool tip to circle
+        .on('mouseover', d =>  tip.show(d, document.getElementById("tool-tip-tweet")) ) // add tool tip to circle
         .on('mouseout', tip.hide)
         .style('opacity',function(d){return (d[time].label!=null)?0.8:0.0;})
         .style('fill', function (d) {
           if (d[0].negative) {
-            return 'brown'
+            return '#c0392b'
           } else {
             return 'steelblue'
           }

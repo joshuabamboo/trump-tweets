@@ -38,7 +38,7 @@ max_id = 954904213687021568
 
 loop do
   resp = GetTweets.new.user_timeline_since(latest_tweet_id, max_id).each do |tweet|
-    Tweet.new_from_twitter(tweet)
+    Tweet.new_from_twitter(tweet) if !
   end
   break if resp.empty?
   max_id = Tweet.order('date').first.twitter_id - 1
