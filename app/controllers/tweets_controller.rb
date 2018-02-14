@@ -11,9 +11,9 @@ class TweetsController < ApplicationController
   end
 
   def year
-    @clinton_tweets = Tweet.tweets_that_include(['hillary', 'clinton', 'crooked'])
-    @obama_tweets = Tweet.tweets_that_include(['barack', 'obama'], ['obamacare'])
-    @trump_tweets = Tweet.tweets_that_include(['donald', 'trump', ' i ', ' me '], ['ivanka',' son', 'ballard'])
+    @clinton_tweets = Tweet.tweets_that_include(['hillary', 'clinton', 'crooked']).sort_by{|t| t.sentiment_score}
+    @obama_tweets = Tweet.tweets_that_include(['barack', 'obama'], ['obamacare']).sort_by{|t| t.sentiment_score}
+    @trump_tweets = Tweet.tweets_that_include(['donald', 'trump'], ['ivanka','My son', 'ballard']).sort_by{|t| t.sentiment_score}.reverse
     @hall_of_shame = Tweet.all_time_worst
   end
 
@@ -42,11 +42,7 @@ class TweetsController < ApplicationController
     @results = [{year: '0'}]
     months = Array( Date.parse("2017-01-01")..Date.parse("2018-01-20") ).select {|d| d.beginning_of_month == d}
     months.each.with_index(1) do |d, i|
-      tweets = Tweet.where(:date => d..d.end_of_month+1)#.sort_by {|t| t.negative?}
-      # do I want to sort them by negativity or time? or something else
-      sorted_tweets = tweets.where("negative is not null").order("negative desc")
-      no_prediction = tweets.where("negative is null")
-      formatted_tweets = sorted_tweets + no_prediction
+      tweets = Tweet.where(:date => d..d.end_of_month+1).sort_by {|t| t.date}
       @results[0]["#{d.strftime('%b %Y')}"] = tweets
     end
     respond_to do |format|

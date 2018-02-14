@@ -104,8 +104,7 @@ class Tweet < ApplicationRecord
     end.flatten.uniq
     if ignore
       ignored = ignore.map do |word|
-        regex = /\b#{word}\b/i
-        self.where("lower(content) like lower(?)", "%#{regex}%")
+        self.where("content ~* ?", "[[:<:]]#{word}[[:>:]]")
       end.flatten.uniq
       tweets = tweets - ignored
     end
