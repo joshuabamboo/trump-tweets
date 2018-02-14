@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get '/circle', to: 'tweets#circle', as: 'circle', :defaults => { :format => 'json' }
   get '/year-in-review', to: 'tweets#year', as: 'year'
 
-  root 'tweets#index'
+  root 'tweets#year-in-review'
 end
