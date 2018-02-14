@@ -212,19 +212,47 @@ class Tweet < ApplicationRecord
     @results = {}
     weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") ).select(&:sunday?)
     weeks.each.with_index(1) do |d, i|
-      tweet_count = self.where(:date => d.beginning_of_week..d.end_of_day).count {|t| t.sentiment_score < 0}
+      tweet_count = self.where(:date => d.beginning_of_week..d.end_of_day+1).count {|t| t.sentiment_score < 0}
       @results[d] = tweet_count
     end
     @results
   end
+
 
   def self.negative_count_by_month
     tweets = self.all
     @results = {}
     months = [ Date.parse("2017-01-01"), Date.parse("2017-02-01"), Date.parse("2017-03-01"), Date.parse("2017-04-01"), Date.parse("2017-05-01"), Date.parse("2017-06-01"), Date.parse("2017-07-01"), Date.parse("2017-08-01"), Date.parse("2017-09-01"), Date.parse("2017-10-01"), Date.parse("2017-11-01"), Date.parse("2017-12-01"), Date.parse("2018-01-20") ]
     months.each.with_index(1) do |d, i|
-      tweet_count = self.where(:date => d.beginning_of_month..d.end_of_month).count {|t| t.sentiment_score < 0}
+      tweets = self.where(:date => d.beginning_of_month..d.end_of_month+1)
+      tweet_count = tweets.count {|t| t.sentiment_score < 0}
+      percentage = tweets.percentage_of_negative_tweets
+      puts "#{d}: #{percentage}"
       @results[d] = tweet_count
+    end
+    @results
+  end
+
+  def self.negative_percentage_by_month
+    tweets = self.all
+    @results = {}
+    months = [ Date.parse("2017-01-01"), Date.parse("2017-02-01"), Date.parse("2017-03-01"), Date.parse("2017-04-01"), Date.parse("2017-05-01"), Date.parse("2017-06-01"), Date.parse("2017-07-01"), Date.parse("2017-08-01"), Date.parse("2017-09-01"), Date.parse("2017-10-01"), Date.parse("2017-11-01"), Date.parse("2017-12-01"), Date.parse("2018-01-20") ]
+    months.each.with_index(1) do |d, i|
+      tweets = self.where(:date => d.beginning_of_month..d.end_of_month+1)
+      percentage = tweets.percentage_of_negative_tweets
+      @results[d] = percentage
+    end
+    @results
+  end
+
+  def self.negative_percentage_by_week
+    tweets = self.all
+    @results = {}
+    weeks = Array( Date.parse("2017-01-20")..Date.parse("2018-01-20") ).select(&:sunday?)
+    weeks.each.with_index(1) do |d, i|
+      tweets = self.where(:date => d.beginning_of_week..d.end_of_day+1)
+      percentage = tweets.percentage_of_negative_tweets
+      @results[d] = percentage
     end
     @results
   end
