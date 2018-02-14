@@ -201,6 +201,7 @@
             idx: i,
             content: tweets[i].content,
             negative: tweets[i].negative,
+            score: tweets[i].sentiment_score,
             date: tweets[i].date
           } );
         }
@@ -221,10 +222,14 @@
         .on('mouseout', tip.hide)
         .style('opacity',function(d){return (d[time].label!=null)?0.8:0.0;})
         .style('fill', function (d) {
-          if (d[0].negative) {
-            return '#c0392b'
+          if (d[0].score < -20) {
+            return 'red'
+          } else if (d[0].score < -10) {
+            return '#e74c3c'
+          } else if (d[0].negative) {
+            return '#ff7979'
           } else {
-            return 'steelblue'
+            return 'white'
           }
         });  // black dots without this
     }); // end load the data
